@@ -1,13 +1,22 @@
 <script setup>
 // import imgUrl from './'
+import SearchBar from './components/SearchBar.vue';
+
 </script>
 
 <template>
-  <div class="outer-container">
+  <div id="app">
+    <div class="outer-container">
     <header>
       <img src="/public/notepad.png">
       <h2>ToDo List</h2>
     </header>
+
+    <div class="search-bar">
+      <SearchBar />
+    </div>
+
+    </div>
   </div>
 </template>
 
@@ -21,6 +30,10 @@
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; 
   padding: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 header{
