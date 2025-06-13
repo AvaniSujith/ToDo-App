@@ -1,13 +1,16 @@
 <script setup>
-    import{ defineProps, defineEmits } from 'vue';
 
-    const props = defineProps(['modelValue']);
-    const emit = defineEmits(['update:modelValue']);
+    const props = defineProps(['value']);
+    const emit = defineEmits(['input']);
+
+    const handleInput = () => {
+        emit('update:moduleValue', $event.target.value)
+    }
 
 </script>
 
 <template>
-    <input type="text" :value="props.modelValue" @input="emit('update:moduleValue', $event.target.value)" />
+    <input type="text" :placeholder="placeholder" :value="value" @input="handleInput" />
 </template>
 
 <style>
