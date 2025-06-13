@@ -1,4 +1,6 @@
 <script setup>
+import InputBar from './components/InputBar.vue';
+import SearchBar from './components/SearchBar.vue';
 </script>
 
 <template>
@@ -10,7 +12,8 @@
     </header>
 
     <div class="search-bar">
-  
+      <InputBar />
+      <SearchBar />
     </div>
 
     </div>
