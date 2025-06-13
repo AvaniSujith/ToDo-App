@@ -16,9 +16,9 @@ const inputValue = ref("");
 
       <div class="search-bar">
         <input-bar
-          :value="inputValue"
+          :modelValue="inputValue"
           placeholder="type something..."
-          @input="(val) => (inputValue = val)"
+          @update:modelValue="($event) => (inputValue = $event)"
         />
         <p>{{ inputValue }}</p>
       </div>

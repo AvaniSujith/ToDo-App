@@ -1,11 +1,11 @@
 <script setup>
-const props = defineProps(["value", "placeholder"]);
+const props = defineProps(["modelValue"]);
 
-const emit = defineEmits(["input"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const handleInput = (event) => {
   const inputValue = event.target.value;
-  emit("input", inputValue);
+  emit("update:modelValue", inputValue);
 };
 </script>
 
@@ -13,8 +13,8 @@ const handleInput = (event) => {
   <input
     class="input-bar"
     type="text"
-    :placeholder="placeholder"
-    :value="value"
+    placeholder="placeholder"
+    :value="props.modelValue"
     @input="handleInput"
   />
 </template>
