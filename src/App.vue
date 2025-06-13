@@ -1,5 +1,6 @@
 <script setup>
-import TaskItem from "./view/TaskListView.vue";
+import InputBar from './components/InputBar.vue';
+
 </script>
 
 <template>
@@ -8,10 +9,12 @@ import TaskItem from "./view/TaskListView.vue";
       <img src="/notepad.png" />
       <h2>ToDo List</h2>
     </header>
-    <div class="container">
-      <task-item />
+
+    <div class="search-bar">
+      <InputBar />
     </div>
-  </div>
+
+    </div>
 </template>
 
 <style>
