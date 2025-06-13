@@ -1,34 +1,40 @@
 <script setup>
-import InputBar from './components/InputBar.vue';
-import SearchBar from './components/SearchBar.vue';
+import InputBar from "./components/InputBar.vue";
+
+import { ref } from "vue";
+
+const inputValue = ref("");
 </script>
 
 <template>
   <div id="app">
     <div class="outer-container">
-    <header>
-      <img src="/public/notepad.png">
-      <h2>ToDo List</h2>
-    </header>
+      <header>
+        <img src="/notepad.png" />
+        <h2>ToDo List</h2>
+      </header>
 
-    <div class="search-bar">
-      <InputBar />
-      <SearchBar />
-    </div>
-
+      <div class="search-bar">
+        <input-bar
+          :value="inputValue"
+          placeholder="type something..."
+          @input="(val) => (inputValue = val)"
+        />
+        <p>{{ inputValue }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <style>
-.outer-container{
+.outer-container {
   background-color: #fff;
   height: 650px;
-  max-width: 60%;
+  max-width: 30%;
   width: 100%;
   margin: auto;
   border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; 
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 35px;
   display: flex;
   flex-direction: column;
@@ -36,19 +42,19 @@ import SearchBar from './components/SearchBar.vue';
   justify-content: center;
 }
 
-header{
+header {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-img{
+img {
   height: 45px;
   width: auto;
 }
 
-h2{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+h2 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 40px;
   line-height: 45px;
   margin: 0;

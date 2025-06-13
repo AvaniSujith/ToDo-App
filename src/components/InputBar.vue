@@ -5,7 +5,6 @@ const emit = defineEmits(["input"]);
 
 const handleInput = (event) => {
   const inputValue = event.target.value;
-
   emit("input", inputValue);
 };
 </script>
