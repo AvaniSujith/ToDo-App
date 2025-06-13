@@ -1,5 +1,9 @@
 <script setup>
-import InputBar from './components/InputBar.vue';
+import { ref } from "vue";
+
+import InputBar from "./components/InputBar.vue";
+
+const inputValue = ref("");
 </script>
 
 <template>
@@ -10,10 +14,14 @@ import InputBar from './components/InputBar.vue';
     </header>
 
     <div class="search-bar">
-      <InputBar />
+      <input-bar
+        :value="inputValue"
+        placeholder="type something..."
+        @input="(val) => (inputValue = val)"
+      />
+      <p>{{ inputValue }}</p>
     </div>
-
-    </div>
+  </div>
 </template>
 
 <style>
