@@ -13,15 +13,15 @@ const inputValue = ref("");
       <h2>ToDo List</h2>
     </header>
 
-    <div class="search-bar">
-      <input-bar
-        :value="inputValue"
-        placeholder="type something..."
-        @input="(val) => (inputValue = val)"
-      />
-      <p>{{ inputValue }}</p>
+      <div class="search-bar">
+        <input-bar
+          :modelValue="inputValue"
+          placeholder="type something..."
+          @update:modelValue="($event) => (inputValue = $event)"
+        />
+        <p>{{ inputValue }}</p>
+      </div>
     </div>
-  </div>
 </template>
 
 <style>
