@@ -1,8 +1,4 @@
 <script setup>
-// import imgUrl from './'
-// import SearchBar from './components/SearchBar.vue';
-import InputBar from './components/InputBar.vue';
-
 </script>
 
 <template>
@@ -14,8 +10,7 @@ import InputBar from './components/InputBar.vue';
     </header>
 
     <div class="search-bar">
-      <!-- <SearchBar /> -->
-      <InputBar />
+  
     </div>
 
     </div>
