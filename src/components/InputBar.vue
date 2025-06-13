@@ -4,7 +4,7 @@
     const emit = defineEmits(['input']);
 
     const handleInput = () => {
-        emit('update:moduleValue', $event.target.value)
+        emit('update:value', $event.target.value)
     }
 
 </script>
