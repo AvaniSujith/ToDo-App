@@ -1,6 +1,10 @@
 <script setup>
 
-    const props = defineProps(['value']);
+    const props = defineProps([
+        'value',
+        'placeholder'
+    ]);
+    
     const emit = defineEmits(['input']);
 
     const handleInput = (event) => {

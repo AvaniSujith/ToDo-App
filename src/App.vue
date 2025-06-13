@@ -1,6 +1,5 @@
 <script setup>
 import InputBar from './components/InputBar.vue';
-
 </script>
 
 <template>
