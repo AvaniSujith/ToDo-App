@@ -1,6 +1,7 @@
 <script setup>
 // import imgUrl from './'
-import SearchBar from './components/SearchBar.vue';
+// import SearchBar from './components/SearchBar.vue';
+import InputBar from './components/InputBar.vue';
 
 </script>
 
@@ -13,7 +14,8 @@ import SearchBar from './components/SearchBar.vue';
     </header>
 
     <div class="search-bar">
-      <SearchBar />
+      <!-- <SearchBar /> -->
+      <InputBar />
     </div>
 
     </div>
