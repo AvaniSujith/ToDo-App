@@ -3,8 +3,8 @@
     const props = defineProps(['value']);
     const emit = defineEmits(['input']);
 
-    const handleInput = () => {
-        emit('update:value', $event.target.value)
+    const handleInput = (event) => {
+        emit('update:value', event.target.value)
     }
 
 </script>
@@ -16,7 +16,7 @@
 <style>
 
 input{
-    border: 1px solid #eee;
+    border: 2px solid #eee;
     padding: 8px;
     border-radius: 8px;
     margin: 10px 0px;
