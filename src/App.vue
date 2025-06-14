@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from "vue";
-
 import InputBar from "./components/InputBar.vue";
 
-const inputValue = ref("");
+const searchQuery = ref("");
+
+const handleSearchQuery = (value) => searchQuery.value = value
 </script>
 
 <template>
@@ -15,11 +16,11 @@ const inputValue = ref("");
 
       <div class="search-bar">
         <input-bar
-          :modelValue="inputValue"
+          :model-value="searchQuery"
           placeholder="type something..."
-          @update:modelValue="($event) => (inputValue = $event)"
+          @update:model-value="handleSearchQuery"
         />
-        <p>{{ inputValue }}</p>
+        <p>{{ searchQuery }}</p>
       </div>
     </div>
 </template>
