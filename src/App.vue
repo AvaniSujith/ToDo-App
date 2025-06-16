@@ -1,5 +1,5 @@
 <script setup>
-import TaskItem from "./view/TaskListView.vue";
+import DropDown from "./components/DropDown.vue";
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import TaskItem from "./view/TaskListView.vue";
       <h2>ToDo List</h2>
     </header>
     <div class="container">
-      <task-item />
+      <drop-down />
     </div>
   </div>
 </template>
