@@ -1,34 +1,31 @@
 <script setup>
-// import imgUrl from './'
-import SearchBar from './components/SearchBar.vue';
-
+import TaskItem from "./components/TaskItem.vue";
 </script>
 
 <template>
   <div id="app">
     <div class="outer-container">
-    <header>
-      <img src="/public/notepad.png">
-      <h2>ToDo List</h2>
-    </header>
+      <header>
+        <img src="/notepad.png" />
+        <h2>ToDo List</h2>
+      </header>
 
-    <div class="search-bar">
-      <SearchBar />
-    </div>
-
+      <div class="container">
+        <task-item />
+      </div>
     </div>
   </div>
 </template>
 
 <style>
-.outer-container{
+.outer-container {
   background-color: #fff;
   height: 650px;
-  max-width: 60%;
+  max-width: 30%;
   width: 100%;
   margin: auto;
   border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; 
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 35px;
   display: flex;
   flex-direction: column;
@@ -36,22 +33,26 @@ import SearchBar from './components/SearchBar.vue';
   justify-content: center;
 }
 
-header{
+header {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-img{
+img {
   height: 45px;
   width: auto;
 }
 
-h2{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+h2 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 40px;
   line-height: 45px;
   margin: 0;
   padding-top: 5px;
+}
+
+.container {
+  width: 100%;
 }
 </style>
