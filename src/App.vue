@@ -3,16 +3,13 @@ import TaskItem from "./view/TaskListView.vue";
 </script>
 
 <template>
-  <div id="app">
-    <div class="outer-container">
-      <header>
-        <img src="/notepad.png" />
-        <h2>ToDo List</h2>
-      </header>
-
-      <div class="container">
-        <task-item />
-      </div>
+  <div id="app" class="outer-container">
+    <header>
+      <img src="/notepad.png" />
+      <h2>ToDo List</h2>
+    </header>
+    <div class="container">
+      <task-item />
     </div>
   </div>
 </template>
@@ -33,6 +30,10 @@ import TaskItem from "./view/TaskListView.vue";
   justify-content: center;
 }
 
+.container {
+  width: 100%;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -50,9 +51,5 @@ h2 {
   line-height: 45px;
   margin: 0;
   padding-top: 5px;
-}
-
-.container {
-  width: 100%;
 }
 </style>

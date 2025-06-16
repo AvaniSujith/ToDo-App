@@ -7,20 +7,17 @@ onMounted(async () => {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/todos");
     const data = await response.json();
-    // console.log(data);
-
     const taskList = [];
     for (let i = 0; i < 5; i++) {
       taskList.push(data[i]);
     }
-
     tasks.value = taskList;
-    console.log(tasks.value);
   } catch (error) {
     console.error("Error fetching", error);
   }
 });
 </script>
+
 <template>
   <div class="task-container" v-if="tasks">
     <div class="count-details">
@@ -47,6 +44,7 @@ onMounted(async () => {
     </ul>
   </div>
 </template>
+
 <style>
 @font-face {
   font-family: "Arctik";
