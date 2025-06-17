@@ -9,7 +9,7 @@ const currentFilter = ref("all");
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
     return tasks.value.filter((task) => task.completed);
-  } else if (currentFilter.value === "incoplete") {
+  } else if (currentFilter.value === "incomplete") {
     return tasks.value.filter((task) => !task.completed);
   }
   return tasks.value;
@@ -37,7 +37,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <drop-down @filter-type="handleFilter" />
+  <drop-down @select="handleFilter" />
   <div class="task-container" v-if="tasks">
     <div class="count-details">
       <div class="view-label">
