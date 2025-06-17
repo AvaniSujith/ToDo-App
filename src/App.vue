@@ -5,6 +5,8 @@ import InputBar from "./components/InputBar.vue";
 
 import TaskList from "./components/TaskList.vue";
 
+import AddNewTask from "./components/AddNewTask.vue";
+
 const searchQuery = ref("");
 
 const handleSearchQuery = (value) => (searchQuery.value = value);
@@ -26,6 +28,7 @@ const handleSearchQuery = (value) => (searchQuery.value = value);
       />
       <p>{{ searchQuery }}</p>
     </div>
+    <add-new-task />
   </div>
 </template>
 
@@ -53,6 +56,7 @@ header {
   display: flex;
   align-items: center;
   gap: 6px;
+  width: 100%;
 }
 
 img {
