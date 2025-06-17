@@ -1,20 +1,23 @@
 <script setup>
 import { ref } from "vue";
 
-const filterSelected = ref("all");
+const selectedValue = ref("all");
 
-const emit = defineEmits(['filterType']);
+const emit = defineEmits(["select"]);
 
-const handleFilterChange = () => {
-  const filterChoosen = filterSelected.value
-  emit('filterType', filterChoosen);
-}
-
+const handleChange = () => {
+  emit("select", selectedValue.value);
+};
 </script>
 
 <template>
   <div class="dropdown-container">
-    <select v-model="filterSelected" name="category" class="task-category" @change="handleFilterChange">
+    <select
+      v-model="selectedValue"
+      name="category"
+      class="task-category"
+      @change="handleChange"
+    >
       <option value="all">All</option>
       <option value="complete">Completed</option>
       <option value="incomplete">Incomplete</option>
