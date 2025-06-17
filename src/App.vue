@@ -1,5 +1,10 @@
 <script setup>
-import TaskItem from "./view/TaskListView.vue";
+import { ref } from "vue";
+import InputBar from "./components/InputBar.vue";
+
+const searchQuery = ref("");
+
+const handleSearchQuery = (value) => searchQuery.value = value
 </script>
 
 <template>
@@ -8,10 +13,16 @@ import TaskItem from "./view/TaskListView.vue";
       <img src="/notepad.png" />
       <h2>ToDo List</h2>
     </header>
-    <div class="container">
-      <task-item />
+
+      <div class="search-bar">
+        <input-bar
+          :model-value="searchQuery"
+          placeholder="type something..."
+          @update:model-value="handleSearchQuery"
+        />
+        <p>{{ searchQuery }}</p>
+      </div>
     </div>
-  </div>
 </template>
 
 <style>
