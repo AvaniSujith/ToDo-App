@@ -1,10 +1,13 @@
 <script setup>
 import { ref } from "vue";
+
 import InputBar from "./components/InputBar.vue";
+
+import TaskList from "./components/TaskList.vue";
 
 const searchQuery = ref("");
 
-const handleSearchQuery = (value) => searchQuery.value = value
+const handleSearchQuery = (value) => (searchQuery.value = value);
 </script>
 
 
@@ -15,14 +18,15 @@ const handleSearchQuery = (value) => searchQuery.value = value
       <h2>ToDo List</h2>
     </header>
     <div class="container">
-       <input-bar
-          :model-value="searchQuery"
-          placeholder="type something..."
-          @update:model-value="handleSearchQuery"
-        />
-        <p>{{ searchQuery }}</p>
-      </div>
+      <task-list />
+      <input-bar
+        :model-value="searchQuery"
+        placeholder="type something..."
+        @update:model-value="handleSearchQuery"
+      />
+      <p>{{ searchQuery }}</p>
     </div>
+  </div>
 </template>
 
 <style>
