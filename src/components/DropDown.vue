@@ -2,26 +2,28 @@
 import { ref, onMounted, computed } from "vue";
 
 const tasks = ref([]);
-const filter = ref("all");
+const filterType = ref("all");
 
 onMounted(async () => {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/todos");
     const data = await response.json();
-    const taskList = [];
-    for (let i = 0; i < 6; i++) {
-      taskList.push(data[i]);
-    }
-    tasks.value = taskList;
+    let count = 0;
+    data.forEach((task) => {
+      if (count < 5) {
+        tasks.value.push(task);
+        count++;
+      }
+    });
   } catch (error) {
     console.error("Error fetching", error);
   }
 });
 
 const filteredTask = computed(() => {
-  if (filter.value === "complete") {
+  if (filterType.value === "complete") {
     return tasks.value.filter((task) => task.completed);
-  } else if (filter.value === "incomplete") {
+  } else if (filterType.value === "incomplete") {
     return tasks.value.filter((task) => !task.completed);
   }
   return tasks.value;
@@ -30,7 +32,7 @@ const filteredTask = computed(() => {
 
 <template>
   <div class="dropdown-container">
-    <select v-model="filter" name="category" id="task-category">
+    <select v-model="filterType" name="category" class="task-category">
       <option value="all">All</option>
       <option value="complete">Completed</option>
       <option value="incomplete">Incomplete</option>
@@ -68,7 +70,7 @@ const filteredTask = computed(() => {
   width: 100%;
 }
 
-#task-category {
+.task-category {
   border: 2px solid #eee;
   padding: 8px;
   border-radius: 8px;
@@ -86,6 +88,7 @@ button {
   background: transparent;
   border: 1px solid transparent;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .task-item {
