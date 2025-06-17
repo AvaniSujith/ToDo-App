@@ -1,5 +1,13 @@
 <script setup>
+import { ref } from "vue";
+
 import DropDown from "./components/DropDown.vue";
+
+import InputBar from "./components/InputBar.vue";
+
+const searchQuery = ref("");
+
+const handleSearchQuery = (value) => (searchQuery.value = value);
 </script>
 
 <template>
@@ -10,6 +18,13 @@ import DropDown from "./components/DropDown.vue";
     </header>
     <div class="container">
       <drop-down />
+
+      <input-bar
+        :model-value="searchQuery"
+        placeholder="type something..."
+        @update:model-value="handleSearchQuery"
+      />
+      <p>{{ searchQuery }}</p>
     </div>
   </div>
 </template>
