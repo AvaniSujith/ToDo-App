@@ -7,22 +7,21 @@ const searchQuery = ref("");
 const handleSearchQuery = (value) => searchQuery.value = value
 </script>
 
-<template>
-  <div id="app">
-    <div class="outer-container">
-      <header>
-        <img src="/notepad.png" />
-        <h2>ToDo List</h2>
-      </header>
 
-      <div class="search-bar">
-        <input-bar
+<template>
+  <div id="app" class="outer-container">
+    <header>
+      <img src="/notepad.png" />
+      <h2>ToDo List</h2>
+    </header>
+    <div class="container">
+       <input-bar
           :model-value="searchQuery"
           placeholder="type something..."
           @update:model-value="handleSearchQuery"
         />
         <p>{{ searchQuery }}</p>
-      </div>
+      <task-item />
     </div>
   </div>
 </template>
@@ -41,6 +40,10 @@ const handleSearchQuery = (value) => searchQuery.value = value
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.container {
+  width: 100%;
 }
 
 header {
