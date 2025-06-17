@@ -21,9 +21,8 @@ const handleSearchQuery = (value) => searchQuery.value = value
           @update:model-value="handleSearchQuery"
         />
         <p>{{ searchQuery }}</p>
-      <task-item />
+      </div>
     </div>
-  </div>
 </template>
 
 <style>
