@@ -1,29 +1,26 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { useTaskStore } from "@/store/Task";
 
 import DropDown from "./DropDown.vue";
 
-const taskStore = useTaskStore();
+const tasks = ref([]);
 const currentFilter = ref("all");
 
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
-    return taskStore.tasks.filter((task) => task.completed);
+    return tasks.filter((task) => task.completed);
   } else if (currentFilter.value === "incomplete") {
-    return taskStore.tasks.filter((task) => !task.completed);
+    return tasks.filter((task) => !task.completed);
   }
-  console.log("task in compuetd",taskStore.tasks)
-  return taskStore.tasks.value;
+  return tasks;
 });
 
-const handleFilter = (filter) => (currentFilter.value = filter);
+const handleFilter = (filter) => {
+  currentFilter.value = filter;
+};
 
 onMounted(async () => {
-  console.log('taskStore tasks', taskStore.tasks)
   await taskStore.getTasks();
-  console.log('tasks', taskStore.tasks)
-  console.log('tasks length', taskStore.tasks.length)
 });
 </script>
 
