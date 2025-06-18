@@ -11,10 +11,8 @@ export const useTaskStore = defineStore("taskStore", () => {
   const getTasks = async () => {
     isLoading.value = true;
     try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/todos"
-      );
-      tasks.value = response.data.slice(0, 5);
+      const response = await axios.get("http://localhost:3000/todos");
+      tasks.value = response.data
     } catch (error) {
       console.error("Error fetching tasks", error);
     } finally {
@@ -25,7 +23,7 @@ export const useTaskStore = defineStore("taskStore", () => {
   const addTask = async (task) => {
     isLoading.value = true;
     try {
-      await axios.post("https://jsonplaceholder.typicode.com/todos", task);
+      await axios.post("http://localhost:3000/todos", task);
       await getTasks();
     } catch (error) {
       console.error("Failed to add task", error);
@@ -37,7 +35,7 @@ export const useTaskStore = defineStore("taskStore", () => {
   const deleteTask = async (id) => {
     isLoading.value = true;
     try {
-      await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+      await axios.delete(`http://localhost:3000/todos/${id}`);
       await getTasks();
     } catch (error) {
       console.error("Error deleting task", error);

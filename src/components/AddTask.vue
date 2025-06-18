@@ -10,15 +10,14 @@ const taskTitle = ref("");
 
 const handleAddTask = async () => {
   const title = taskTitle.value.trim();
-  console.log("title", title)
   if (title) {
     const newTask = {
+      id: Math.floor(Math.random() * 100),
       title,
       completed: false,
-      userId: 1,
+      
     };
     await taskStore.addTask(newTask);
-    console.log("taskadded", taskStore.tasks)
     taskTitle.value = "";
   }
 };
@@ -29,7 +28,6 @@ const handleAddTask = async () => {
     <input-bar placeholder="New Todo" v-model="taskTitle" />
     <button class="add-task" @click="handleAddTask" :disabled="taskStore.isLoading">Add</button>
     <span v-if="taskStore.isLoading">Adding Task...</span>
-    <span v-else>Added</span>
   </div>
 </template>
 
