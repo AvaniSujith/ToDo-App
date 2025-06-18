@@ -13,14 +13,13 @@ const filteredTask = computed(() => {
   } else if (currentFilter.value === "incomplete") {
     return taskStore.tasks.value.filter((task) => !task.completed);
   }
-
   return taskStore.tasks.value;
 });
 
 const handleFilter = (filter) => (currentFilter.value = filter);
 
-onMounted(() => {
-  taskStore.getTasks();
+onMounted( async () => {
+  await taskStore.getTasks();
 });
 </script>
 
