@@ -12,10 +12,8 @@ const handleAddTask = async () => {
   const title = taskTitle.value.trim();
   if (title) {
     const newTask = {
-      
       title,
       completed: false,
-      
     };
     await taskStore.addTask(newTask);
     taskTitle.value = "";
@@ -26,7 +24,13 @@ const handleAddTask = async () => {
 <template>
   <div class="add-task-container">
     <input-bar placeholder="New Todo" v-model="taskTitle" />
-    <button class="add-task" @click="handleAddTask" :disabled="taskStore.isLoading">Add</button>
+    <button
+      class="add-task"
+      @click="handleAddTask"
+      :disabled="taskStore.isLoading"
+    >
+      Add
+    </button>
     <span v-if="taskStore.isLoading">Adding Task...</span>
   </div>
 </template>

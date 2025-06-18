@@ -23,10 +23,10 @@ const handleFilter = (filter) => {
 };
 
 const handleDeleteTask = async (id) => {
-  if(confirm("Are you sure to delete the task?")){
-    await taskStore.deleteTask(id)
+  if (confirm("Are you sure to delete the task?")) {
+    await taskStore.deleteTask(id);
   }
-}
+};
 
 onMounted(async () => {
   await taskStore.getTasks();
