@@ -1,21 +1,18 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 
-import { useTaskStore } from "@/store/Task";
-
 import DropDown from "./DropDown.vue";
 
-const taskStore = useTaskStore()
-
+const tasks = ref([]);
 const currentFilter = ref("all");
 
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
-    return taskStore.tasks.filter((task) => task.completed);
+    return tasks.filter((task) => task.completed);
   } else if (currentFilter.value === "incomplete") {
-    return taskStore.tasks.filter((task) => !task.completed);
+    return tasks.filter((task) => !task.completed);
   }
-  return taskStore.tasks;
+  return tasks;
 });
 
 const handleFilter = (filter) => {
@@ -25,7 +22,6 @@ const handleFilter = (filter) => {
 onMounted(async () => {
   await taskStore.getTasks();
 });
-
 </script>
 
 <template>
@@ -33,7 +29,9 @@ onMounted(async () => {
   <div class="task-container" v-if="taskStore.tasks && taskStore.tasks.length">
     <div class="count-details">
       <div class="view-label">
-        <p>{{ filteredTask.length }} / {{ taskStore.tasks.length }} tasks</p>
+        <p>
+          {{ filteredTask.length }} / {{ taskStore.tasks.length }} tasks
+        </p>
       </div>
       <div class="view-btn">
         <button class="view-all">View All</button>
