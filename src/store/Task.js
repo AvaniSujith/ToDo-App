@@ -21,4 +21,5 @@ export const useTaskStore = defineStore("taskStore", () => {
     tasks,
     getTasks,
   };
+
 });
