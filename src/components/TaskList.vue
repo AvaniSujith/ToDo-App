@@ -8,45 +8,30 @@ const taskStore = useTaskStore();
 const currentFilter = ref("all");
 
 const filteredTask = computed(() => {
-
-  if(!taskStore.tasks.value) return [];
-
   if (currentFilter.value === "complete") {
     return taskStore.tasks.value.filter((task) => task.completed);
   } else if (currentFilter.value === "incomplete") {
     return taskStore.tasks.value.filter((task) => !task.completed);
   }
-  
+
   return taskStore.tasks.value;
 });
 
 const handleFilter = (filter) => (currentFilter.value = filter);
 
-const isLoading = ref(true);
-
-onMounted( async () => {
-  // console.log('taskStore', taskStore);
-  // console.log('taskstore.task before getTask', taskStore.tasks)
-  // console.log(' type taskstore.task before getTask', typeof taskStore.tasks)
-  await taskStore.getTasks();
-  isLoading.value = false;
-  // console.log('tasks after getTask', taskStore.tasks)
-  // console.log('tasks.value', taskStore.tasks?.value)
-  console.log('tasks length', taskStore.tasks.value?.length);
-  console.log('first', taskStore.tasks.value?.[0]);
+onMounted(() => {
+  taskStore.getTasks();
 });
-
-
 </script>
 
 <template>
   <drop-down @select="handleFilter" />
-  <div class="loading" v-if="isLoading">Loading....</div>
-  <div class="task-container" v-else-if="taskStore.tasks.value?.length > 0">
-    
+  <div class="task-container" v-if="taskStore.tasks">
     <div class="count-details">
       <div class="view-label">
-        <p>{{ filteredTask.length }} / {{ taskStore.tasks.value.length }} tasks</p>
+        <p>
+          {{ filteredTask.length }} / {{ taskStore.tasks.value.length }} tasks
+        </p>
       </div>
       <div class="view-btn">
         <button class="view-all">View All</button>
