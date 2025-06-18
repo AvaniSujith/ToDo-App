@@ -11,7 +11,7 @@ export const useTaskStore = defineStore("taskStore", () => {
         "https://jsonplaceholder.typicode.com/todos"
       );
       const data = await response.json();
-      tasks.value = data;
+      tasks.value = data.slice(0, 5);
     } catch (error) {
       console.log("Error fetching tasks", error);
     }

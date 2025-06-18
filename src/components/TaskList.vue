@@ -7,14 +7,13 @@ import DropDown from "./DropDown.vue";
 
 const taskStore = useTaskStore()
 
-const tasks = ref([]);
 const currentFilter = ref("all");
 
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
-    return tasks.filter((task) => task.completed);
+    return taskStore.tasks.filter((task) => task.completed);
   } else if (currentFilter.value === "incomplete") {
-    return tasks.filter((task) => !task.completed);
+    return taskStore.tasks.filter((task) => !task.completed);
   }
   return taskStore.tasks;
 });
