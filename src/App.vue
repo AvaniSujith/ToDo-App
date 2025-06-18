@@ -1,13 +1,6 @@
 <script setup>
-import { ref } from "vue";
-
-import InputBar from "./components/InputBar.vue";
 
 import TaskList from "./components/TaskList.vue";
-
-const searchQuery = ref("");
-
-const handleSearchQuery = (value) => (searchQuery.value = value);
 </script>
 
 
