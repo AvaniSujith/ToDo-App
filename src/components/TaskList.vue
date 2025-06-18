@@ -9,28 +9,31 @@ const currentFilter = ref("all");
 
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
-    return taskStore.tasks.value.filter((task) => task.completed);
+    return taskStore.tasks.filter((task) => task.completed);
   } else if (currentFilter.value === "incomplete") {
-    return taskStore.tasks.value.filter((task) => !task.completed);
+    return taskStore.tasks.filter((task) => !task.completed);
   }
-
+  console.log("task in compuetd",taskStore.tasks)
   return taskStore.tasks.value;
 });
 
 const handleFilter = (filter) => (currentFilter.value = filter);
 
-onMounted(() => {
-  taskStore.getTasks();
+onMounted(async () => {
+  console.log('taskStore tasks', taskStore.tasks)
+  await taskStore.getTasks();
+  console.log('tasks', taskStore.tasks)
+  console.log('tasks length', taskStore.tasks.length)
 });
 </script>
 
 <template>
   <drop-down @select="handleFilter" />
-  <div class="task-container" v-if="taskStore.tasks">
+  <div class="task-container" v-if="taskStore.tasks && taskStore.tasks.length">
     <div class="count-details">
       <div class="view-label">
         <p>
-          {{ filteredTask.length }} / {{ taskStore.tasks.value.length }} tasks
+          {{ filteredTask.length }} / {{ taskStore.tasks.length }} tasks
         </p>
       </div>
       <div class="view-btn">
