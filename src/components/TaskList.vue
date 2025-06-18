@@ -5,7 +5,7 @@ import { useTaskStore } from "@/store/Task";
 
 import DropDown from "./DropDown.vue";
 
-const taskStore = useTaskStore()
+const taskStore = useTaskStore();
 
 const currentFilter = ref("all");
 
@@ -25,7 +25,6 @@ const handleFilter = (filter) => {
 onMounted(async () => {
   await taskStore.getTasks();
 });
-
 </script>
 
 <template>
@@ -43,7 +42,11 @@ onMounted(async () => {
     <ul class="tasks">
       <li class="task-item" v-for="task in filteredTask" :key="task.id">
         <div class="task-done">
-          <input type="checkbox" :checked="task.completed" @change="taskStore.toggleTask(task.id)"/>
+          <input
+            type="checkbox"
+            :checked="task.completed"
+            @change="taskStore.toggleTask(task.id)"
+          />
         </div>
         <div class="task-label">
           <p style="color: black">{{ task.title }}</p>

@@ -12,7 +12,7 @@ export const useTaskStore = defineStore("taskStore", () => {
     isLoading.value = true;
     try {
       const response = await axios.get("http://localhost:3000/todos");
-      tasks.value = response.data
+      tasks.value = response.data;
     } catch (error) {
       console.error("Error fetching tasks", error);
     } finally {
@@ -45,26 +45,29 @@ export const useTaskStore = defineStore("taskStore", () => {
   };
 
   const toggleTask = async (id) => {
-    const task = tasks.value.find(task => task.id === id)
+    const task = tasks.value.find((task) => task.id === id);
 
-    if(!task) return
+    if (!task) return;
 
-    task.completed = !task.completed;
+    const taskStatus = !task.completed;
+    task.completed = taskStatus;
 
-    try{
+    try {
       await axios.patch(`http://localhost:3000/todos/${id}`, {
-        completed: task.completed
-      })
-    }catch(error){
-      console.error('Error updating task status', error)
+        completed: taskStatus,
+      });
+
+      await getTasks();
+    } catch (error) {
+      console.error("Error updating task status", error);
     }
-  }
+  };
 
   return {
     tasks,
     getTasks,
     addTask,
     deleteTask,
-    toggleTask
+    toggleTask,
   };
 });
