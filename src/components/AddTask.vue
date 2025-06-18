@@ -8,10 +8,17 @@ import InputBar from "./InputBar.vue";
 const taskStore = useTaskStore();
 const taskTitle = ref("");
 
-const handleAddTask = () => {
+const handleAddTask = async () => {
   const title = taskTitle.value.trim();
+  console.log("title", title)
   if (title) {
-    taskStore.addTask(title);
+    const newTask = {
+      title,
+      completed: false,
+      userId: 1,
+    };
+    await taskStore.addTask(newTask);
+    console.log("taskadded", taskStore.tasks)
     taskTitle.value = "";
   }
 };
@@ -20,7 +27,9 @@ const handleAddTask = () => {
 <template>
   <div class="add-task-container">
     <input-bar placeholder="New Todo" v-model="taskTitle" />
-    <button class="add-task" @click="handleAddTask">Add</button>
+    <button class="add-task" @click="handleAddTask" :disabled="taskStore.isLoading">Add</button>
+    <span v-if="taskStore.isLoading">Adding Task...</span>
+    <span v-else>Added</span>
   </div>
 </template>
 

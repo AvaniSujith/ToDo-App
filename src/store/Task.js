@@ -2,33 +2,54 @@ import { ref } from "vue";
 
 import { defineStore } from "pinia";
 
+import axios from "axios";
+
 export const useTaskStore = defineStore("taskStore", () => {
   const tasks = ref([]);
+  const isLoading = ref(false);
 
   const getTasks = async () => {
+    isLoading.value = true;
     try {
-      const response = await fetch(
+      const response = await axios.get(
         "https://jsonplaceholder.typicode.com/todos"
       );
-      const data = await response.json();
-      tasks.value = data.slice(0, 5);
+      tasks.value = response.data.slice(0, 5);
     } catch (error) {
-      console.log("Error fetching tasks", error);
+      console.error("Error fetching tasks", error);
+    } finally {
+      isLoading.value = false;
     }
   };
 
-  const addTask = (title) => {
-    const newTask = {
-      id: Math.floor(Math.random() * 1000),
-      title,
-      completed: false,
-    };
-    tasks.value.unshift(newTask);
+  const addTask = async (task) => {
+    isLoading.value = true;
+    try {
+      await axios.post("https://jsonplaceholder.typicode.com/todos", task);
+      await getTasks();
+    } catch (error) {
+      console.error("Failed to add task", error);
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  const deleteTask = async (id) => {
+    isLoading.value = true;
+    try {
+      await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+      await getTasks();
+    } catch (error) {
+      console.error("Error deleting task", error);
+    } finally {
+      isLoading.value = false;
+    }
   };
 
   return {
     tasks,
     getTasks,
     addTask,
+    deleteTask,
   };
 });
