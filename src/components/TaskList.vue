@@ -1,47 +1,37 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { useTaskStore } from "@/store/Task";
 
 import DropDown from "./DropDown.vue";
 
-const tasks = ref([]);
+const taskStore = useTaskStore();
 const currentFilter = ref("all");
 
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
-    return tasks.value.filter((task) => task.completed);
+    return taskStore.tasks.value.filter((task) => task.completed);
   } else if (currentFilter.value === "incomplete") {
-    return tasks.value.filter((task) => !task.completed);
+    return taskStore.tasks.value.filter((task) => !task.completed);
   }
-  return tasks.value;
+
+  return taskStore.tasks.value;
 });
 
-const handleFilter = (filter) => {
-  currentFilter.value = filter;
-};
+const handleFilter = (filter) => (currentFilter.value = filter);
 
-onMounted(async () => {
-  try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/todos");
-    const data = await response.json();
-    let count = 0;
-    data.forEach((task) => {
-      if (count < 5) {
-        tasks.value.push(task);
-        count++;
-      }
-    });
-  } catch (error) {
-    console.error("Error fetching", error);
-  }
+onMounted(() => {
+  taskStore.getTasks();
 });
 </script>
 
 <template>
   <drop-down @select="handleFilter" />
-  <div class="task-container" v-if="tasks">
+  <div class="task-container" v-if="taskStore.tasks">
     <div class="count-details">
       <div class="view-label">
-        <p>{{ filteredTask.length }} / {{ tasks.length }} tasks</p>
+        <p>
+          {{ filteredTask.length }} / {{ taskStore.tasks.value.length }} tasks
+        </p>
       </div>
       <div class="view-btn">
         <button class="view-all">View All</button>
