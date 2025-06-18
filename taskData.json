@@ -3,7 +3,7 @@
     {
       "id": "1",
       "title": "delectus aut autem",
-      "completed": false
+      "completed": true
     },
     {
       "id": "2",
@@ -28,6 +28,11 @@
     {
       "id": 4,
       "title": "task 1",
+      "completed": false
+    },
+    {
+      "id": 92,
+      "title": "task 2",
       "completed": false
     }
   ]

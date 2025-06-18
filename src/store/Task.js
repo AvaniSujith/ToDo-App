@@ -44,10 +44,27 @@ export const useTaskStore = defineStore("taskStore", () => {
     }
   };
 
+  const toggleTask = async (id) => {
+    const task = tasks.value.find(task => task.id === id)
+
+    if(!task) return
+
+    task.completed = !task.completed;
+
+    try{
+      await axios.patch(`http://localhost:3000/todos/${id}`, {
+        completed: task.completed
+      })
+    }catch(error){
+      console.error('Error updating task status', error)
+    }
+  }
+
   return {
     tasks,
     getTasks,
     addTask,
     deleteTask,
+    toggleTask
   };
 });

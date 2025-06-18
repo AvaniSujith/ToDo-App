@@ -43,7 +43,7 @@ onMounted(async () => {
     <ul class="tasks">
       <li class="task-item" v-for="task in filteredTask" :key="task.id">
         <div class="task-done">
-          <input type="checkbox" :checked="task.completed" />
+          <input type="checkbox" :checked="task.completed" @change="taskStore.toggleTask(task.id)"/>
         </div>
         <div class="task-label">
           <p style="color: black">{{ task.title }}</p>
