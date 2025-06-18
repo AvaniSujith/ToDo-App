@@ -1,7 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 
+import { useTaskStore } from "@/store/Task";
+
 import DropDown from "./DropDown.vue";
+
+const taskStore = useTaskStore()
 
 const tasks = ref([]);
 const currentFilter = ref("all");
@@ -22,6 +26,7 @@ const handleFilter = (filter) => {
 onMounted(async () => {
   await taskStore.getTasks();
 });
+
 </script>
 
 <template>
