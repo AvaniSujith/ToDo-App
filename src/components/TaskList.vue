@@ -22,6 +22,12 @@ const handleFilter = (filter) => {
   currentFilter.value = filter;
 };
 
+const handleDeleteTask = async (id) => {
+  if(confirm("Are you sure to delete the task?")){
+    await taskStore.deleteTask(id)
+  }
+}
+
 onMounted(async () => {
   await taskStore.getTasks();
 });
@@ -52,7 +58,7 @@ onMounted(async () => {
           <p style="color: black">{{ task.title }}</p>
         </div>
         <div class="task-delete">
-          <button class="del-btn">X</button>
+          <button class="del-btn" @click="handleDeleteTask(task.id)">X</button>
         </div>
       </li>
     </ul>

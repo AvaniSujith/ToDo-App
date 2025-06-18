@@ -6,11 +6,6 @@
       "completed": true
     },
     {
-      "id": "2",
-      "title": "quis ut nam facilis et officia qui",
-      "completed": false
-    },
-    {
       "id": "3",
       "title": "fugiat veniam minus",
       "completed": true
@@ -26,13 +21,8 @@
       "completed": false
     },
     {
-      "id": 4,
+      "id": "41a2",
       "title": "task 1",
-      "completed": false
-    },
-    {
-      "id": 92,
-      "title": "task 2",
       "completed": false
     }
   ]

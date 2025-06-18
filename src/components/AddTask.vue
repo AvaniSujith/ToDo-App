@@ -12,7 +12,7 @@ const handleAddTask = async () => {
   const title = taskTitle.value.trim();
   if (title) {
     const newTask = {
-      id: Math.floor(Math.random() * 100),
+      
       title,
       completed: false,
       
