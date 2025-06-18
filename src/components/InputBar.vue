@@ -24,8 +24,6 @@ const handleInput = (event) => {
   border: 2px solid #eee;
   padding: 8px;
   border-radius: 8px;
-  font-size: 18px;
   margin: 10px 0px;
-  width: 100%;
 }
 </style>
