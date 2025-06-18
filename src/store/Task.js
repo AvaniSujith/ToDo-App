@@ -17,8 +17,18 @@ export const useTaskStore = defineStore("taskStore", () => {
     }
   };
 
+  const addTask = (title) => {
+    const newTask = {
+      id: Math.floor(Math.random() * 1000),
+      title,
+      completed: false,
+    };
+    tasks.value.unshift(newTask);
+  };
+
   return {
     tasks,
     getTasks,
+    addTask,
   };
 });
