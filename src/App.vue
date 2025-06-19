@@ -1,12 +1,13 @@
 <script setup>
 import HomePage from "./pages/HomePage.vue";
+
+import TaskPage from "./pages/TaskPage.vue";
 </script>
 
 <template>
   <div id="app" class="outer-container">
-    
-      <home-page />
-  
+    <home-page />
+    <task-page />
   </div>
 </template>
 
@@ -25,5 +26,4 @@ import HomePage from "./pages/HomePage.vue";
   align-items: center;
   justify-content: center;
 }
-
 </style>

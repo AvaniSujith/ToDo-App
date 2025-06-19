@@ -22,7 +22,7 @@ const filteredTask = computed(() => {
   return taskStore.tasks;
 });
 
- const totalTask = computed(() => filteredTask.reverse().slice(0, 5))
+const totalTask = computed(() => [...filteredTask.value].reverse().slice(0, 5));
 
 const handleFilter = (filter) => {
   currentFilter.value = filter;
@@ -33,7 +33,7 @@ const handleUpdateTask = (id) => {
 };
 
 const handleDeleteTask = async (id) => {
-  if (confirm("are you sure to delete the task?")) {
+  if (confirm("Are you sure to delete the task?")) {
     await taskStore.deleteTask(id);
   }
 };
@@ -58,7 +58,7 @@ onMounted(async () => {
   <div class="task-container" v-if="taskStore.tasks && taskStore.tasks.length">
     <div class="count-details">
       <div class="view-label">
-        <p>{{ filteredTask.length }} / {{ taskStore.tasks.length }} tasks</p>
+        <p>{{ totalTask.length }} / {{ taskStore.tasks.length }} tasks</p>
       </div>
       <div class="view-btn">
         <button class="view-all">View All</button>
