@@ -23,15 +23,18 @@ const handleAddTask = async () => {
 
 <template>
   <div class="add-task-container">
-    <input-bar placeholder="New Todo" v-model="taskTitle" @keyup.enter="handleAddTask"/>
+    <input-bar
+      placeholder="New Todo"
+      v-model="taskTitle"
+      @keyup.enter="handleAddTask"
+    />
     <button
       class="add-task"
-      @click="handleAddTask"
       :disabled="taskStore.isLoading"
+      @click="handleAddTask"
     >
       Add
     </button>
-    <span v-if="taskStore.isLoading">Adding Task...</span>
   </div>
 </template>
 

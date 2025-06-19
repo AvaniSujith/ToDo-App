@@ -28,6 +28,10 @@ const handleDeleteTask = async (id) => {
   }
 };
 
+const handleUpdateTask = (id) => {
+  taskStore.updateTask(id);
+};
+
 onMounted(async () => {
   await taskStore.getTasks();
 });
@@ -51,7 +55,7 @@ onMounted(async () => {
           <input
             type="checkbox"
             :checked="task.completed"
-            @change="taskStore.toggleTask(task.id)"
+            @change="handleUpdateTask(task.id)"
           />
         </div>
         <div class="task-label">

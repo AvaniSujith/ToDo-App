@@ -44,7 +44,7 @@ export const useTaskStore = defineStore("taskStore", () => {
     }
   };
 
-  const toggleTask = async (id) => {
+  const updateTask = async (id) => {
     const task = tasks.value.find((task) => task.id === id);
 
     if (!task) return;
@@ -68,6 +68,6 @@ export const useTaskStore = defineStore("taskStore", () => {
     getTasks,
     addTask,
     deleteTask,
-    toggleTask,
+    updateTask,
   };
 });
