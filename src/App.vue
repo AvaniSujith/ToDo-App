@@ -1,6 +1,7 @@
 <script setup>
 
 import TaskList from "./components/TaskList.vue";
+import AddTask from "./components/AddTask.vue";
 
 </script>
 
@@ -11,6 +12,7 @@ import TaskList from "./components/TaskList.vue";
       <h2>ToDo List</h2>
     </header>
     <div class="container">
+      <add-task />
       <task-list />
     </div>
   </div>

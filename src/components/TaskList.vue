@@ -5,7 +5,7 @@ import { useTaskStore } from "@/store/Task";
 
 import DropDown from "./DropDown.vue";
 
-const taskStore = useTaskStore()
+const taskStore = useTaskStore();
 
 const currentFilter = ref("all");
 
@@ -22,10 +22,19 @@ const handleFilter = (filter) => {
   currentFilter.value = filter;
 };
 
+const handleDeleteTask = async (id) => {
+  if (confirm("Are you sure to delete the task?")) {
+    await taskStore.deleteTask(id);
+  }
+};
+
+const handleUpdateTask = (id) => {
+  taskStore.updateTask(id);
+};
+
 onMounted(async () => {
   await taskStore.getTasks();
 });
-
 </script>
 
 <template>
@@ -43,13 +52,17 @@ onMounted(async () => {
     <ul class="tasks">
       <li class="task-item" v-for="task in filteredTask" :key="task.id">
         <div class="task-done">
-          <input type="checkbox" :checked="task.completed" />
+          <input
+            type="checkbox"
+            :checked="task.completed"
+            @change="handleUpdateTask(task.id)"
+          />
         </div>
         <div class="task-label">
           <p style="color: black">{{ task.title }}</p>
         </div>
         <div class="task-delete">
-          <button class="del-btn">X</button>
+          <button class="del-btn" @click="handleDeleteTask(task.id)">X</button>
         </div>
       </li>
     </ul>
