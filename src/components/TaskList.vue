@@ -1,72 +1,33 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
-
-import { useTaskStore } from "@/store/Task";
-
-import DropDown from "./DropDown.vue";
-
-const taskStore = useTaskStore();
-
-const currentFilter = ref("all");
-
-const filteredTask = computed(() => {
-  if (currentFilter.value === "complete") {
-    return taskStore.tasks.filter((task) => task.completed);
-  } else if (currentFilter.value === "incomplete") {
-    return taskStore.tasks.filter((task) => !task.completed);
-  }
-  return taskStore.tasks;
+const props = defineProps({
+  tasks: Array,
 });
 
-const handleFilter = (filter) => {
-  currentFilter.value = filter;
-};
-
-const handleDeleteTask = async (id) => {
-  if (confirm("Are you sure to delete the task?")) {
-    await taskStore.deleteTask(id);
-  }
-};
-
-const handleUpdateTask = (id) => {
-  taskStore.updateTask(id);
-};
-
-onMounted(async () => {
-  await taskStore.getTasks();
-});
+const emit = defineEmits(["updateTask", "deleteTask"]);
 </script>
 
 <template>
-  <drop-down @select="handleFilter" />
-  <div class="task-container" v-if="taskStore.tasks && taskStore.tasks.length">
-    <div class="count-details">
-      <div class="view-label">
-        <p>{{ filteredTask.length }} / {{ taskStore.tasks.length }} tasks</p>
+  <ul class="tasks">
+    <li class="task-item" v-for="task in tasks" :key="task.id">
+      <div class="task-done">
+        <input
+          type="checkbox"
+          :checked="task.completed"
+          @change="emit('updateTask', task.id)"
+        />
       </div>
-      <div class="view-btn">
-        <button class="view-all">View All</button>
+      <div class="task-label">
+        <p
+          :style="{ textDecoration: task.completed ? 'line-through' : 'none' }"
+        >
+          {{ task.title }}
+        </p>
       </div>
-    </div>
-
-    <ul class="tasks">
-      <li class="task-item" v-for="task in filteredTask" :key="task.id">
-        <div class="task-done">
-          <input
-            type="checkbox"
-            :checked="task.completed"
-            @change="handleUpdateTask(task.id)"
-          />
-        </div>
-        <div class="task-label">
-          <p style="color: black">{{ task.title }}</p>
-        </div>
-        <div class="task-delete">
-          <button class="del-btn" @click="handleDeleteTask(task.id)">X</button>
-        </div>
-      </li>
-    </ul>
-  </div>
+      <div class="task-delete">
+        <button class="del-btn" @click="emit('deleteTask', task.id)">X</button>
+      </div>
+    </li>
+  </ul>
 </template>
 
 <style>
