@@ -23,7 +23,7 @@ const handleAddTask = async () => {
 
 <template>
   <div class="add-task-container">
-    <input-bar placeholder="New Todo" v-model="taskTitle" />
+    <input-bar placeholder="New Todo" v-model="taskTitle" @keyup.enter="handleAddTask"/>
     <button
       class="add-task"
       @click="handleAddTask"
