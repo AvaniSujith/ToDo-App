@@ -1,13 +1,14 @@
 <script setup>
-import HomePage from "./pages/HomePage.vue";
+// import HomePage from "./pages/HomePage.vue";
 
-import TaskPage from "./pages/TaskPage.vue";
+// import TaskPage from "./pages/TaskPage.vue";
 </script>
 
 <template>
   <div id="app" class="outer-container">
-    <home-page />
-    <task-page />
+    <!-- <home-page /> -->
+    <!-- <task-page /> -->
+     <router-view></router-view>
   </div>
 </template>
 
