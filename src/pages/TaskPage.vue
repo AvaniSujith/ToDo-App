@@ -1,5 +1,8 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
+
+import { RouterLink } from "vue-router";
+
 import { useTaskStore } from "@/store/Task";
 
 import TaskList from "@/components/TaskList.vue";
@@ -38,6 +41,14 @@ onMounted(async () => {
 
 <template>
   <div class="page-container" v-if="!taskStore.isLoading">
+    <div class="back-button">
+      <router-link to="/" class="nav-link">
+        Back to Home
+      </router-link>
+    </div>
+    <div class="page-title">
+      <h2>All Tasks</h2>
+    </div>
     <input-bar placeholder="Search..." v-model="searchQuery" />
     <div class="task-container" v-if="searchedTask.length">
       <task-list
@@ -52,3 +63,22 @@ onMounted(async () => {
   </div>
   <div class="loading-container" v-else>Loading data....</div>
 </template>
+
+<style>
+.back-button{
+  background: #eee;
+  border-radius: 8px;
+  width: max-content;
+  padding: 6px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+h2{
+  font-size: 32px;
+}
+
+.page-title{
+  text-align: center;
+}
+</style>

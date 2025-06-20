@@ -104,10 +104,6 @@ onMounted(async () => {
 </template>
 
 <style>
-.nav-link {
-  text-decoration: none;
-  color: #000;
-}
 
 .tasks {
   padding-left: 0px;
