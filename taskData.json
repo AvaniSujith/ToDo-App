@@ -8,22 +8,27 @@
     {
       "id": "3",
       "title": "fugiat veniam minus",
-      "completed": false
+      "completed": true
     },
     {
       "id": "4",
       "title": "et porro tempora",
-      "completed": false
+      "completed": true
     },
     {
       "id": "5",
       "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      "completed": true
+      "completed": false
     },
     {
       "id": "41a2",
       "title": "task 1",
-      "completed": true
+      "completed": false
+    },
+    {
+      "id": "e359",
+      "title": "task2",
+      "completed": false
     }
   ]
 }

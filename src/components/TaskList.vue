@@ -4,10 +4,12 @@ import { ref, computed, onMounted } from "vue";
 import { useTaskStore } from "@/store/Task";
 
 import DropDown from "./DropDown.vue";
+import InputBar from "./InputBar.vue";
 
 const taskStore = useTaskStore();
 
 const currentFilter = ref("all");
+const searchQuery = ref("");
 
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
@@ -18,8 +20,25 @@ const filteredTask = computed(() => {
   return taskStore.tasks;
 });
 
+const searchedTask = computed(() => {
+  if (searchQuery.value !== "") {
+    return filteredTask.value.filter((task) =>
+      task.title
+        .toLowerCase()
+        .trim()
+        .includes(searchQuery.value.toLowerCase().trim())
+    );
+  }
+
+  return filteredTask.value;
+});
+
 const handleFilter = (filter) => {
   currentFilter.value = filter;
+};
+
+const handleSearch = (search) => {
+  searchQuery.value = search;
 };
 
 const handleDeleteTask = async (id) => {
@@ -34,11 +53,16 @@ onMounted(async () => {
 </script>
 
 <template>
+  <input-bar
+    placeholder="Search..."
+    v-model="searchQuery"
+    @keyup.enter="handleSearch"
+  />
   <drop-down @select="handleFilter" />
   <div class="task-container" v-if="taskStore.tasks && taskStore.tasks.length">
     <div class="count-details">
       <div class="view-label">
-        <p>{{ filteredTask.length }} / {{ taskStore.tasks.length }} tasks</p>
+        <p>{{ searchedTask.length }} / {{ taskStore.tasks.length }} tasks</p>
       </div>
       <div class="view-btn">
         <button class="view-all">View All</button>
@@ -46,7 +70,7 @@ onMounted(async () => {
     </div>
 
     <ul class="tasks">
-      <li class="task-item" v-for="task in filteredTask" :key="task.id">
+      <li class="task-item" v-for="task in searchedTask" :key="task.id">
         <div class="task-done">
           <input
             type="checkbox"

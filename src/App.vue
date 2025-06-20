@@ -2,7 +2,6 @@
 
 import TaskList from "./components/TaskList.vue";
 import AddTask from "./components/AddTask.vue";
-import SearchBar from "./components/SearchBar.vue";
 
 </script>
 
@@ -13,7 +12,6 @@ import SearchBar from "./components/SearchBar.vue";
       <h2>ToDo List</h2>
     </header>
     <div class="container">
-      <search-bar />
       <add-task />
       <task-list />
     </div>
