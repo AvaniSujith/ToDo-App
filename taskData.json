@@ -18,7 +18,7 @@
     {
       "id": "41a2",
       "title": "task 1",
-      "completed": false
+      "completed": true
     },
     {
       "id": "4811",
@@ -28,7 +28,7 @@
     {
       "id": "fa00",
       "title": "task 2",
-      "completed": false
+      "completed": true
     },
     {
       "id": "cc66",
@@ -38,7 +38,7 @@
     {
       "id": "2267",
       "title": "task 8",
-      "completed": false
+      "completed": true
     },
     {
       "id": "819b",
