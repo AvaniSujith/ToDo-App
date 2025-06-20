@@ -5,11 +5,12 @@ import { useTaskStore } from "@/store/Task";
 import DropDown from "@/components/DropDown.vue";
 import AddTask from "@/components/AddTask.vue";
 import TaskList from "@/components/TaskList.vue";
+import InputBar from "@/components/InputBar.vue";
 
 const taskStore = useTaskStore();
 
 const currentFilter = ref("all");
-
+const searchQuery = ref("");
 
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
@@ -20,7 +21,22 @@ const filteredTask = computed(() => {
   return taskStore.tasks;
 });
 
-const recentTasks = computed(() => [...filteredTask.value].reverse().slice(0, 5));
+const searchedTask = computed(() => {
+  if (searchQuery.value !== "") {
+    return filteredTask.value.filter((task) =>
+      task.title
+        .toLowerCase()
+        .trim()
+        .includes(searchQuery.value.toLowerCase().trim())
+    );
+  }
+
+  return filteredTask.value
+});
+
+const recentTasks = computed(() =>
+  [...searchedTask.value].reverse().slice(0, 5)
+);
 
 const handleFilter = (filter) => {
   currentFilter.value = filter;
@@ -48,6 +64,7 @@ onMounted(async () => {
       <h2>ToDo List</h2>
     </div>
     <div class="input-container">
+      <input-bar placeholder="Search..." v-model="searchQuery" />
       <drop-down @select="handleFilter" />
       <add-task />
     </div>
@@ -69,7 +86,6 @@ onMounted(async () => {
       @deleteTask="handleDeleteTask"
     />
   </div>
-
 </template>
 
 <style>

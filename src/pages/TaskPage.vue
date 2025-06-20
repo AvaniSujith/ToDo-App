@@ -1,10 +1,24 @@
 <script setup>
-import { onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useTaskStore } from "@/store/Task";
 
 import TaskList from "@/components/TaskList.vue";
+import InputBar from "@/components/InputBar.vue";
 
 const taskStore = useTaskStore();
+const searchQuery = ref("");
+
+const searchedTask = computed(() => {
+  if (searchQuery.value !== "") {
+    return taskStore.tasks.filter((task) =>
+      task.title
+        .toLowerCase()
+        .trim()
+        .includes(searchQuery.value.toLowerCase().trim())
+    );
+  }
+  return taskStore.tasks;
+});
 
 const handleUpdateTask = (id) => {
   taskStore.updateTask(id);
@@ -22,8 +36,9 @@ onMounted(async () => {
 </script>
 
 <template>
+  <input-bar placeholder="Search..." v-model="searchQuery" />
   <task-list
-    :tasks="taskStore.tasks"
+    :tasks="searchedTask"
     @updateTask="handleUpdateTask"
     @deleteTask="handleDeleteTask"
   />

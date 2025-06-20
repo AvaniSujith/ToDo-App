@@ -17,7 +17,7 @@ const handleDelete = (id) => {
 
 <template>
   <ul class="tasks">
-    <li class="task-item" v-for="task in taskStore.tasks" :key="task.id">
+    <li class="task-item" v-for="task in tasks" :key="task.id">
       <div class="task-done">
         <input
           type="checkbox"
