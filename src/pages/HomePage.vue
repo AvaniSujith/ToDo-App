@@ -22,16 +22,15 @@ const filteredTask = computed(() => {
 
   let result = tasks;
 
-  if (currentFilterValue) {
-    if (currentFilterValue === "complete") {
-      result = tasks.filter((task) => task.completed);
-    } else if (currentFilterValue === "incomplete") {
-      result = tasks.filter((task) => !task.completed);
-    }
-  }
+  const filteredList =
+    currentFilterValue === "complete"
+      ? tasks.filter((task) => task.completed)
+      : currentFilterValue === "incomplete"
+      ? tasks.filter((task) => !task.completed)
+      : tasks;
 
   if (searchQueryValue !== "") {
-    result = result.filter((task) =>
+    result = filteredList.filter((task) =>
       task.title.trim().toLowerCase().includes(searchQueryValue)
     );
   }
