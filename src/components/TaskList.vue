@@ -1,30 +1,36 @@
 <script setup>
-const props = defineProps({
-  tasks: Array,
-});
+import { useTaskStore } from "@/store/Task";
+
+const taskStore = useTaskStore();
 
 const emit = defineEmits(["updateTask", "deleteTask"]);
+
+const handleUpdate = (id) => {
+  emit("updateTask", id);
+};
+
+const handleDelete = (id) => {
+  emit("deleteTask", id);
+};
 </script>
 
 <template>
   <ul class="tasks">
-    <li class="task-item" v-for="task in tasks" :key="task.id">
+    <li class="task-item" v-for="task in taskStore.tasks" :key="task.id">
       <div class="task-done">
         <input
           type="checkbox"
           :checked="task.completed"
-          @change="emit('updateTask', task.id)"
+          @change="handleUpdate(task.id)"
         />
       </div>
       <div class="task-label">
-        <p
-          :style="{ textDecoration: task.completed ? 'line-through' : 'none' }"
-        >
+        <p :class="task.completed ? 'completed' : 'not-completed'">
           {{ task.title }}
         </p>
       </div>
       <div class="task-delete">
-        <button class="del-btn" @click="emit('deleteTask', task.id)">X</button>
+        <button class="del-btn" @click="handleDelete(task.id)">X</button>
       </div>
     </li>
   </ul>
@@ -81,5 +87,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.completed {
+  text-decoration: line-through;
 }
 </style>

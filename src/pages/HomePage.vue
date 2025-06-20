@@ -1,14 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-
 import { RouterLink } from "vue-router";
 
 import { useTaskStore } from "@/store/Task";
 
 import DropDown from "@/components/DropDown.vue";
-
 import AddTask from "@/components/AddTask.vue";
-
 import TaskList from "@/components/TaskList.vue";
 
 const taskStore = useTaskStore();
@@ -24,7 +21,7 @@ const filteredTask = computed(() => {
   return taskStore.tasks;
 });
 
-const totalTask = computed(() => [...filteredTask.value].reverse().slice(0, 5));
+const recentTasks = computed(() => [...filteredTask.value].reverse().slice(0, 5));
 
 const handleFilter = (filter) => {
   currentFilter.value = filter;
@@ -57,10 +54,10 @@ onMounted(async () => {
     </div>
   </header>
 
-  <div class="task-container" v-if="taskStore.tasks && taskStore.tasks.length">
+  <div class="task-container" v-if="recentTasks.length">
     <div class="count-details">
       <div class="view-label">
-        <p>{{ totalTask.length }} / {{ taskStore.tasks.length }} tasks</p>
+        <p>{{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks</p>
       </div>
       <div class="view-btn">
         <button class="view-all">
@@ -70,11 +67,12 @@ onMounted(async () => {
     </div>
 
     <task-list
-      :tasks="totalTask"
+      :tasks="recentTasks"
       @updateTask="handleUpdateTask"
       @deleteTask="handleDeleteTask"
     />
   </div>
+
 </template>
 
 <style>

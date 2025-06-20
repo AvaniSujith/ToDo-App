@@ -1,7 +1,6 @@
 <script setup>
-import { useTaskStore } from "@/store/Task";
-
 import { onMounted } from "vue";
+import { useTaskStore } from "@/store/Task";
 
 import TaskList from "@/components/TaskList.vue";
 
@@ -26,8 +25,6 @@ onMounted(async () => {
   <task-list
     :tasks="taskStore.tasks"
     @updateTask="handleUpdateTask"
-    @click="handleDeleteTask"
+    @deleteTask="handleDeleteTask"
   />
 </template>
-
-<style></style>
