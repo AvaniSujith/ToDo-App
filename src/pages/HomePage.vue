@@ -34,7 +34,7 @@ const searchedTask = computed(() => {
     );
   }
 
-  return filteredTask.value
+  return filteredTask.value;
 });
 
 const recentTasks = computed(() =>
@@ -61,46 +61,50 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header>
-    <div class="heading">
-      <img src="/notepad.png" />
-      <h2>ToDo List</h2>
-    </div>
-    <div class="input-container">
-      <input-bar placeholder="Search..." v-model="searchQuery" />
-      <drop-down @select="handleFilter" />
-      <add-task />
-    </div>
-  </header>
-
-  <div class="recent-task-container" v-if="recentTasks.length">
-    <div class="task-container" v-if="recentTasks.length">
-    <div class="count-details">
-      <div class="view-label">
-        <p>{{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks</p>
+  <div class="page-container" v-if="!taskStore.isLoading">
+    <header>
+      <div class="heading">
+        <img src="/notepad.png" />
+        <h2>ToDo List</h2>
       </div>
-      <div class="view-btn">
-        <button class="view-all">
-          <router-link to="/tasksPage" class="nav-link">  View All</router-link>
-         </button>
+      <div class="input-container">
+        <input-bar placeholder="Search..." v-model="searchQuery" />
+        <drop-down @select="handleFilter" />
+        <add-task />
+      </div>
+    </header>
+
+    <div class="recent-task-container" v-if="recentTasks.length">
+      <div class="task-container" v-if="recentTasks.length">
+        <div class="count-details">
+          <div class="view-label">
+            <p>{{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks</p>
+          </div>
+          <div class="view-btn">
+            <button class="view-all">
+              <router-link to="/tasksPage" class="nav-link">
+                View All</router-link
+              >
+            </button>
+          </div>
+        </div>
+
+        <task-list
+          :tasks="recentTasks"
+          @updateTask="handleUpdateTask"
+          @deleteTask="handleDeleteTask"
+        />
       </div>
     </div>
-
-    <task-list
-      :tasks="recentTasks"
-      @updateTask="handleUpdateTask"
-      @deleteTask="handleDeleteTask"
-    />
+    <div class="empty-container" v-else>
+      <empty-task />
+    </div>
   </div>
-  </div>
-  <div class="empty-container" v-else>
-    <empty-task />
-  </div>
+  <div class="loading-container" v-else>Loading data..</div>
 </template>
 
 <style>
-
-.nav-link{
+.nav-link {
   text-decoration: none;
   color: #000;
 }
@@ -171,8 +175,8 @@ h2 {
 header,
 .task-container,
 .container,
-.recent-task-container {
+.recent-task-container,
+.page-container {
   width: 100%;
 }
-
 </style>

@@ -37,15 +37,18 @@ onMounted(async () => {
 </script>
 
 <template>
-  <input-bar placeholder="Search..." v-model="searchQuery" />
-  <div class="task-container" v-if="searchedTask.length">
-    <task-list
-      :tasks="searchedTask"
-      @updateTask="handleUpdateTask"
-      @deleteTask="handleDeleteTask"
-    />
+  <div class="page-container" v-if="!taskStore.isLoading">
+    <input-bar placeholder="Search..." v-model="searchQuery" />
+    <div class="task-container" v-if="searchedTask.length">
+      <task-list
+        :tasks="searchedTask"
+        @updateTask="handleUpdateTask"
+        @deleteTask="handleDeleteTask"
+      />
+    </div>
+    <div class="empty-container" v-else>
+      <empty-task />
+    </div>
   </div>
-  <div class="empty-container" v-else>
-    <empty-task />
-  </div>
+  <div class="loading-container" v-else>Loading data....</div>
 </template>
