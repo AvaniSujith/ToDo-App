@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { RouterLink } from "vue-router";
+
 import { useTaskStore } from "@/store/Task";
 
 import DropDown from "@/components/DropDown.vue";
@@ -76,7 +78,9 @@ onMounted(async () => {
         <p>{{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks</p>
       </div>
       <div class="view-btn">
-        <button class="view-all">View All</button>
+        <button class="view-all">
+          <router-link to="/tasksPage" class="nav-link">  View All</router-link>
+         </button>
       </div>
     </div>
 
@@ -92,6 +96,11 @@ onMounted(async () => {
 @font-face {
   font-family: "Arctik";
   src: url(/src/assets/Arctik-FontZillion/Fonts/atrian\ 3.ttf);
+}
+
+.nav-link{
+  text-decoration: none;
+  color: #000;
 }
 
 .tasks {
