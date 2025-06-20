@@ -16,29 +16,31 @@ const currentFilter = ref("all");
 const searchQuery = ref("");
 
 const filteredTask = computed(() => {
-  if (currentFilter.value === "complete") {
-    return taskStore.tasks.filter((task) => task.completed);
-  } else if (currentFilter.value === "incomplete") {
-    return taskStore.tasks.filter((task) => !task.completed);
-  }
-  return taskStore.tasks;
-});
+  const tasks = taskStore.tasks;
+  const currentFilterValue = currentFilter.value;
+  const searchQueryValue = searchQuery.value.trim().toLowerCase();
 
-const searchedTask = computed(() => {
-  if (searchQuery.value !== "") {
-    return filteredTask.value.filter((task) =>
-      task.title
-        .toLowerCase()
-        .trim()
-        .includes(searchQuery.value.toLowerCase().trim())
+  let result = tasks;
+
+  if (currentFilterValue) {
+    if (currentFilterValue === "complete") {
+      result = tasks.filter((task) => task.completed);
+    } else if (currentFilterValue === "incomplete") {
+      result = tasks.filter((task) => !task.completed);
+    }
+  }
+
+  if (searchQueryValue !== "") {
+    result = result.filter((task) =>
+      task.title.trim().toLowerCase().includes(searchQueryValue)
     );
   }
 
-  return filteredTask.value;
+  return result;
 });
 
 const recentTasks = computed(() =>
-  [...searchedTask.value].reverse().slice(0, 5)
+  [...filteredTask.value].reverse().slice(0, 5)
 );
 
 const handleFilter = (filter) => {
