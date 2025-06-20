@@ -1,20 +1,13 @@
 <script setup>
+import HomePage from "./pages/HomePage.vue";
 
-import TaskList from "./components/TaskList.vue";
-import AddTask from "./components/AddTask.vue";
-
+import TaskPage from "./pages/TaskPage.vue";
 </script>
 
 <template>
   <div id="app" class="outer-container">
-    <header>
-      <img src="/notepad.png" />
-      <h2>ToDo List</h2>
-    </header>
-    <div class="container">
-      <add-task />
-      <task-list />
-    </div>
+    <home-page />
+    <task-page />
   </div>
 </template>
 
@@ -32,28 +25,5 @@ import AddTask from "./components/AddTask.vue";
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.container {
-  width: 100%;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-img {
-  height: 45px;
-  width: auto;
-}
-
-h2 {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  font-size: 40px;
-  line-height: 45px;
-  margin: 0;
-  padding-top: 5px;
 }
 </style>
