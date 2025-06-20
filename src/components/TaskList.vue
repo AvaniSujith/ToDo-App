@@ -1,7 +1,8 @@
 <script setup>
-import { useTaskStore } from "@/store/Task";
 
-const taskStore = useTaskStore();
+defineProps({
+  tasks: Array
+})
 
 const emit = defineEmits(["updateTask", "deleteTask"]);
 

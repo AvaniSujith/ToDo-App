@@ -10,6 +10,7 @@ const taskStore = useTaskStore();
 
 const currentFilter = ref("all");
 
+
 const filteredTask = computed(() => {
   if (currentFilter.value === "complete") {
     return taskStore.tasks.filter((task) => task.completed);
