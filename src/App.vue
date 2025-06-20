@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <div id="app" class="outer-container">
+  <div class="outer-container">
     <!-- <home-page /> -->
     <!-- <task-page /> -->
      <router-view></router-view>
@@ -15,7 +15,8 @@
 <style>
 .outer-container {
   background-color: #fff;
-  height: 650px;
+  max-height: 650px;
+  height: 100%;
   max-width: 30%;
   width: 100%;
   margin: auto;
@@ -25,6 +26,5 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 </style>

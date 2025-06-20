@@ -8,6 +8,7 @@ import DropDown from "@/components/DropDown.vue";
 import AddTask from "@/components/AddTask.vue";
 import TaskList from "@/components/TaskList.vue";
 import InputBar from "@/components/InputBar.vue";
+import EmptyTask from "@/components/EmptyTask.vue";
 
 const taskStore = useTaskStore();
 
@@ -72,7 +73,8 @@ onMounted(async () => {
     </div>
   </header>
 
-  <div class="task-container" v-if="recentTasks.length">
+  <div class="recent-task-container" v-if="recentTasks.length">
+    <div class="task-container" v-if="recentTasks.length">
     <div class="count-details">
       <div class="view-label">
         <p>{{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks</p>
@@ -90,13 +92,13 @@ onMounted(async () => {
       @deleteTask="handleDeleteTask"
     />
   </div>
+  </div>
+  <div class="empty-container" v-else>
+    <empty-task />
+  </div>
 </template>
 
 <style>
-@font-face {
-  font-family: "Arctik";
-  src: url(/src/assets/Arctik-FontZillion/Fonts/atrian\ 3.ttf);
-}
 
 .nav-link{
   text-decoration: none;
@@ -124,14 +126,11 @@ button {
   font-weight: 500;
   font-size: 18px;
   text-wrap: nowrap;
-  font-family: "Arctik";
 }
 
 .del-btn {
   padding: 3px 7px;
   line-height: 20px;
-  font-family: "Arctik";
-
   color: red;
   font-weight: 900;
 }
@@ -148,10 +147,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.container {
-  width: 100%;
 }
 
 .heading {
@@ -174,7 +169,10 @@ h2 {
 }
 
 header,
-.task-container {
+.task-container,
+.container,
+.recent-task-container {
   width: 100%;
 }
+
 </style>

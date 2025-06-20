@@ -38,10 +38,6 @@ const handleDelete = (id) => {
 </template>
 
 <style>
-@font-face {
-  font-family: "Arctik";
-  src: url(/src/assets/Arctik-FontZillion/Fonts/atrian\ 3.ttf);
-}
 
 .tasks {
   padding-left: 0px;
@@ -64,14 +60,11 @@ button {
   font-weight: 500;
   font-size: 18px;
   text-wrap: nowrap;
-  font-family: "Arctik";
 }
 
 .del-btn {
   padding: 3px 7px;
   line-height: 20px;
-  font-family: "Arctik";
-
   color: red;
   font-weight: 900;
 }

@@ -4,6 +4,7 @@ import { useTaskStore } from "@/store/Task";
 
 import TaskList from "@/components/TaskList.vue";
 import InputBar from "@/components/InputBar.vue";
+import EmptyTask from "@/components/EmptyTask.vue";
 
 const taskStore = useTaskStore();
 const searchQuery = ref("");
@@ -37,9 +38,14 @@ onMounted(async () => {
 
 <template>
   <input-bar placeholder="Search..." v-model="searchQuery" />
-  <task-list
-    :tasks="searchedTask"
-    @updateTask="handleUpdateTask"
-    @deleteTask="handleDeleteTask"
-  />
+  <div class="task-container" v-if="searchedTask.length">
+    <task-list
+      :tasks="searchedTask"
+      @updateTask="handleUpdateTask"
+      @deleteTask="handleDeleteTask"
+    />
+  </div>
+  <div class="empty-container" v-else>
+    <empty-task />
+  </div>
 </template>
