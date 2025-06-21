@@ -16,36 +16,31 @@ const taskStore = useTaskStore();
 const currentFilter = ref("all");
 const searchQuery = ref("");
 
-const filteredList = computed(() => {
+const filteredTask = computed(() => {
+  const tasks = taskStore.tasks;
+  const currentFilterValue = currentFilter.value;
+  const searchQueryValue = searchQuery.value.trim().toLowerCase();
 
-  const tasks = taskStore.tasks
-  const searchQueryValue = searchQuery.value.trim().toLowerCase()
-  const currentFilterValue = currentFilter.value
+  let result = tasks;
 
-  let result = tasks
-
-   if(currentFilterValue){
-     if (currentFilterValue === "complete") {
-       result = result.filter((task) => task.completed);
-     } else if (currentFilter.value === "incomplete") {
-       result = result.filter((task) => !task.completed);
-     }
-   }
-
-    if (searchQuery.value !== "") {
-      result = result.filter((task) =>
-        task.title
-          .toLowerCase()
-          .trim()
-          .includes(searchQueryValue)
-      );
+  if (currentFilterValue) {
+    if (currentFilterValue === "complete") {
+      result = result.filter((task) => task.completed);
+    } else if (currentFilterValue === "incomplete") {
+      result = result.filter((task) => !task.completed);
     }
-  
+  }
+
+  if (searchQueryValue !== "") {
+    result = result.filter((task) =>
+      task.title.trim().toLowerCase().includes(searchQueryValue)
+    );
+  }
+  return result;
 });
 
-
 const recentTasks = computed(() =>
-  [...filteredList.value].reverse().slice(0, 5)
+  [...filteredTask.value].reverse().slice(0, 5)
 );
 
 const handleFilter = (filter) => {
@@ -68,7 +63,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="page-container" v-if="!taskStore.isLoading">
+  <div class="page-container">
     <header>
       <div class="heading">
         <img src="/notepad.png" />
@@ -80,9 +75,9 @@ onMounted(async () => {
         <add-task />
       </div>
     </header>
-    <section class="task-list-container">
+
+    <section class="task-list-container" v-if="!taskStore.isLoading">
       <div class="recent-task-container" v-if="recentTasks.length">
-        <div class="task-container" v-if="recentTasks.length">
           <div class="count-details">
             <div class="view-label">
               <p>
@@ -103,13 +98,12 @@ onMounted(async () => {
             @deleteTask="handleDeleteTask"
           />
         </div>
-      </div>
       <div class="empty-container" v-else>
         <empty-task />
       </div>
     </section>
+    <div class="loading-container" v-else>Loading data..</div>
   </div>
-  <div class="loading-container" v-else>Loading data..</div>
 </template>
 
 <style>

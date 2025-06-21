@@ -10,6 +10,7 @@ import InputBar from "@/components/InputBar.vue";
 import EmptyTask from "@/components/EmptyTask.vue";
 
 const taskStore = useTaskStore();
+
 const searchQuery = ref("");
 
 const searchedTask = computed(() => {
