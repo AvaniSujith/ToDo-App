@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
+
 import { RouterLink } from "vue-router";
 
 import { useTaskStore } from "@/store/Task";
@@ -24,9 +25,9 @@ const filteredTask = computed(() => {
 
   const filteredList =
     currentFilterValue === "complete"
-      ? tasks.filter((task) => task.completed)
+      ? result.filter((task) => task.completed)
       : currentFilterValue === "incomplete"
-      ? tasks.filter((task) => !task.completed)
+      ? result.filter((task) => !task.completed)
       : tasks;
 
   if (searchQueryValue !== "") {
@@ -61,7 +62,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="page-container" v-if="!taskStore.isLoading">
+  <div class="page-container">
     <header>
       <div class="heading">
         <img src="/notepad.png" />
@@ -74,33 +75,37 @@ onMounted(async () => {
       </div>
     </header>
 
-    <div class="recent-task-container" v-if="recentTasks.length">
-      <div class="task-container" v-if="recentTasks.length">
-        <div class="count-details">
-          <div class="view-label">
-            <p>{{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks</p>
+    <section class="task-list-container" v-if="!taskStore.isLoading">
+      <div class="recent-task-container" v-if="recentTasks.length">
+        <div class="task-container" v-if="recentTasks.length">
+          <div class="count-details">
+            <div class="view-label">
+              <p>
+                {{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks
+              </p>
+            </div>
+            <div class="view-btn">
+              <button class="view-all">
+                <router-link to="/tasksPage" class="nav-link">
+                  View All</router-link
+                >
+              </button>
+            </div>
           </div>
-          <div class="view-btn">
-            <button class="view-all">
-              <router-link to="/tasksPage" class="nav-link">
-                View All</router-link
-              >
-            </button>
-          </div>
-        </div>
 
-        <task-list
-          :tasks="recentTasks"
-          @updateTask="handleUpdateTask"
-          @deleteTask="handleDeleteTask"
-        />
+          <task-list
+            :tasks="recentTasks"
+            @updateTask="handleUpdateTask"
+            @deleteTask="handleDeleteTask"
+          />
+        </div>
       </div>
-    </div>
-    <div class="empty-container" v-else>
-      <empty-task />
-    </div>
+      <div class="empty-container" v-else>
+        <empty-task />
+      </div>
+    </section>
+    <div class="loading-container" v-else>Loading data..</div>
   </div>
-  <div class="loading-container" v-else>Loading data..</div>
 </template>
 
 <style>
