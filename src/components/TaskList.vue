@@ -36,7 +36,7 @@ const handleDelete = (id) => {
   </ul>
 </template>
 
-<style>
+<style scoped>
 .tasks {
   padding-left: 0px;
 }

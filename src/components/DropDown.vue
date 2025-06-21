@@ -25,7 +25,7 @@ const handleChange = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .dropdown-container {
   width: 100%;
 }

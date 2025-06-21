@@ -17,6 +17,7 @@ const currentFilter = ref("all");
 const searchQuery = ref("");
 
 const filteredTask = computed(() => {
+  
   const tasks = taskStore.tasks;
   const currentFilterValue = currentFilter.value;
   const searchQueryValue = searchQuery.value.trim().toLowerCase();
@@ -106,7 +107,7 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .heading {
   display: flex;
   align-items: center;
