@@ -6,9 +6,6 @@
 
 <style>
 .empty-task{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 18px;
 }
 </style>

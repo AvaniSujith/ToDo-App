@@ -1,7 +1,8 @@
 <script setup>
-import { useTaskStore } from "@/store/Task";
 
-const taskStore = useTaskStore();
+defineProps({
+  tasks: Array
+})
 
 const emit = defineEmits(["updateTask", "deleteTask"]);
 
@@ -16,7 +17,7 @@ const handleDelete = (id) => {
 
 <template>
   <ul class="tasks">
-    <li class="task-item" v-for="task in taskStore.tasks" :key="task.id">
+    <li class="task-item" v-for="task in tasks" :key="task.id">
       <div class="task-done">
         <input
           type="checkbox"
@@ -37,10 +38,6 @@ const handleDelete = (id) => {
 </template>
 
 <style>
-@font-face {
-  font-family: "Arctik";
-  src: url(/src/assets/Arctik-FontZillion/Fonts/atrian\ 3.ttf);
-}
 
 .tasks {
   padding-left: 0px;
@@ -63,14 +60,11 @@ button {
   font-weight: 500;
   font-size: 18px;
   text-wrap: nowrap;
-  font-family: "Arctik";
 }
 
 .del-btn {
   padding: 3px 7px;
   line-height: 20px;
-  font-family: "Arctik";
-
   color: red;
   font-weight: 900;
 }

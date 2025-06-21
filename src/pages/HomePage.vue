@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
+
 import { RouterLink } from "vue-router";
 
 import { useTaskStore } from "@/store/Task";
@@ -7,21 +8,40 @@ import { useTaskStore } from "@/store/Task";
 import DropDown from "@/components/DropDown.vue";
 import AddTask from "@/components/AddTask.vue";
 import TaskList from "@/components/TaskList.vue";
+import InputBar from "@/components/InputBar.vue";
+import EmptyTask from "@/components/EmptyTask.vue";
 
 const taskStore = useTaskStore();
 
 const currentFilter = ref("all");
+const searchQuery = ref("");
 
 const filteredTask = computed(() => {
-  if (currentFilter.value === "complete") {
-    return taskStore.tasks.filter((task) => task.completed);
-  } else if (currentFilter.value === "incomplete") {
-    return taskStore.tasks.filter((task) => !task.completed);
+  const tasks = taskStore.tasks;
+  const currentFilterValue = currentFilter.value;
+  const searchQueryValue = searchQuery.value.trim().toLowerCase();
+
+  let result = tasks;
+
+  if (currentFilterValue) {
+    if (currentFilterValue === "complete") {
+      result = result.filter((task) => task.completed);
+    } else if (currentFilterValue === "incomplete") {
+      result = result.filter((task) => !task.completed);
+    }
   }
-  return taskStore.tasks;
+
+  if (searchQueryValue !== "") {
+    result = result.filter((task) =>
+      task.title.trim().toLowerCase().includes(searchQueryValue)
+    );
+  }
+  return result;
 });
 
-const recentTasks = computed(() => [...filteredTask.value].reverse().slice(0, 5));
+const recentTasks = computed(() =>
+  [...filteredTask.value].reverse().slice(0, 5)
+);
 
 const handleFilter = (filter) => {
   currentFilter.value = filter;
@@ -43,45 +63,54 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header>
-    <div class="heading">
-      <img src="/notepad.png" />
-      <h2>ToDo List</h2>
-    </div>
-    <div class="input-container">
-      <drop-down @select="handleFilter" />
-      <add-task />
-    </div>
-  </header>
-
-  <div class="task-container" v-if="recentTasks.length">
-    <div class="count-details">
-      <div class="view-label">
-        <p>{{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks</p>
+  <div class="page-container">
+    <header>
+      <div class="heading">
+        <img src="/notepad.png" />
+        <h2>ToDo List</h2>
       </div>
-      <div class="view-btn">
-        <button class="view-all">
-          <router-link to="/tasksPage" class="nav-link">  View All</router-link>
-         </button>
+      <div class="input-container">
+        <input-bar placeholder="Search..." v-model="searchQuery" />
+        <drop-down @select="handleFilter" />
+        <add-task />
       </div>
-    </div>
+    </header>
 
-    <task-list
-      :tasks="recentTasks"
-      @updateTask="handleUpdateTask"
-      @deleteTask="handleDeleteTask"
-    />
+    <section class="task-list-container" v-if="!taskStore.isLoading">
+      <div class="recent-task-container" v-if="recentTasks.length">
+        <div class="task-container" v-if="recentTasks.length">
+          <div class="count-details">
+            <div class="view-label">
+              <p>
+                {{ recentTasks.length }} / {{ taskStore.tasks.length }} tasks
+              </p>
+            </div>
+            <div class="view-btn">
+              <button class="view-all">
+                <router-link to="/tasksPage" class="nav-link">
+                  View All</router-link
+                >
+              </button>
+            </div>
+          </div>
+
+          <task-list
+            :tasks="recentTasks"
+            @updateTask="handleUpdateTask"
+            @deleteTask="handleDeleteTask"
+          />
+        </div>
+      </div>
+      <div class="empty-container" v-else>
+        <empty-task />
+      </div>
+    </section>
+    <div class="loading-container" v-else>Loading data..</div>
   </div>
-
 </template>
 
 <style>
-@font-face {
-  font-family: "Arctik";
-  src: url(/src/assets/Arctik-FontZillion/Fonts/atrian\ 3.ttf);
-}
-
-.nav-link{
+.nav-link {
   text-decoration: none;
   color: #000;
 }
@@ -107,14 +136,11 @@ button {
   font-weight: 500;
   font-size: 18px;
   text-wrap: nowrap;
-  font-family: "Arctik";
 }
 
 .del-btn {
   padding: 3px 7px;
   line-height: 20px;
-  font-family: "Arctik";
-
   color: red;
   font-weight: 900;
 }
@@ -131,10 +157,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.container {
-  width: 100%;
 }
 
 .heading {
@@ -157,7 +179,10 @@ h2 {
 }
 
 header,
-.task-container {
+.task-container,
+.container,
+.recent-task-container,
+.page-container {
   width: 100%;
 }
 </style>
