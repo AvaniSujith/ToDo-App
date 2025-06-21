@@ -1,13 +1,5 @@
-<script setup>
-// import HomePage from "./pages/HomePage.vue";
-
-// import TaskPage from "./pages/TaskPage.vue";
-</script>
-
 <template>
   <div class="outer-container">
-    <!-- <home-page /> -->
-    <!-- <task-page /> -->
      <router-view></router-view>
   </div>
 </template>
@@ -26,6 +18,5 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll;
 }
 </style>

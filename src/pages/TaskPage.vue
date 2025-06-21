@@ -41,31 +41,33 @@ onMounted(async () => {
 
 <template>
   <div class="page-container" v-if="!taskStore.isLoading">
-    <div class="back-button">
-      <router-link to="/" class="nav-link">
-        Back to Home
-      </router-link>
-    </div>
-    <div class="page-title">
-      <h2>All Tasks</h2>
-    </div>
-    <input-bar placeholder="Search..." v-model="searchQuery" />
-    <div class="task-container" v-if="searchedTask.length">
-      <task-list
-        :tasks="searchedTask"
-        @updateTask="handleUpdateTask"
-        @deleteTask="handleDeleteTask"
-      />
-    </div>
-    <div class="empty-container" v-else>
-      <empty-task />
-    </div>
+    <nav class="back-button">
+      <router-link to="/" class="nav-link"> Back to Home </router-link>
+    </nav>
+    <header>
+      <div class="page-title">
+        <h2>All Tasks</h2>
+      </div>
+      <input-bar placeholder="Search..." v-model="searchQuery" />
+    </header>
+    <section class="task-list-container">
+      <div class="task-container" v-if="searchedTask.length">
+        <task-list
+          :tasks="searchedTask"
+          @updateTask="handleUpdateTask"
+          @deleteTask="handleDeleteTask"
+        />
+      </div>
+      <div class="empty-container" v-else>
+        <empty-task />
+      </div>
+    </section>
   </div>
   <div class="loading-container" v-else>Loading data....</div>
 </template>
 
 <style>
-.back-button{
+.back-button {
   background: #eee;
   border-radius: 8px;
   width: max-content;
@@ -74,11 +76,18 @@ onMounted(async () => {
   font-weight: 700;
 }
 
-h2{
+h2 {
   font-size: 32px;
 }
 
-.page-title{
+.page-title {
   text-align: center;
+}
+
+.task-container{
+  max-height: 436px;
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 </style>

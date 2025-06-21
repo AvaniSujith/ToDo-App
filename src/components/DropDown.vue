@@ -39,4 +39,8 @@ const handleChange = () => {
   width: 100%;
   font-size: 18px;
 }
+
+select {
+  cursor: pointer;
+}
 </style>
