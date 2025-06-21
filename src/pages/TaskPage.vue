@@ -67,7 +67,7 @@ onMounted(async () => {
   <div class="loading-container" v-else>Loading data....</div>
 </template>
 
-<style>
+<style scoped>
 .back-button {
   background: #eee;
   border-radius: 8px;
@@ -88,7 +88,12 @@ h2 {
 .task-container{
   max-height: 436px;
   height: 100%;
+  width: 100%;
   overflow-y: auto;
   scroll-behavior: smooth;
+}
+
+.page-container{
+  width: 100%;
 }
 </style>
