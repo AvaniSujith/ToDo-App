@@ -1,5 +1,4 @@
 <script setup>
-
 defineProps({
   tasks: Array
 })
@@ -37,16 +36,9 @@ const handleDelete = (id) => {
   </ul>
 </template>
 
-<style>
-
+<style scoped>
 .tasks {
   padding-left: 0px;
-}
-
-button {
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 4px;
 }
 
 .task-item {
@@ -67,20 +59,6 @@ button {
   line-height: 20px;
   color: red;
   font-weight: 900;
-}
-
-.view-all {
-  padding: 5px 8px;
-  background-color: #eee;
-  font-size: 15px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 700;
-}
-
-.count-details {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .completed {

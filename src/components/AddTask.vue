@@ -6,6 +6,7 @@ import { useTaskStore } from "@/store/Task";
 import InputBar from "./InputBar.vue";
 
 const taskStore = useTaskStore();
+
 const taskTitle = ref("");
 
 const handleAddTask = async () => {
@@ -38,12 +39,13 @@ const handleAddTask = async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .add-task-container {
   display: flex;
   gap: 5px;
   width: 100%;
 }
+
 .add-task {
   background-color: #317ed6;
   padding: 8px;

@@ -25,7 +25,7 @@ const handleChange = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .dropdown-container {
   width: 100%;
 }
@@ -38,5 +38,9 @@ const handleChange = () => {
   background: transparent;
   width: 100%;
   font-size: 18px;
+}
+
+select {
+  cursor: pointer;
 }
 </style>

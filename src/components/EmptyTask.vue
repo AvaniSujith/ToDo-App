@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 .empty-task{
     font-size: 18px;
 }

@@ -19,7 +19,7 @@ const handleInput = (event) => {
   />
 </template>
 
-<style>
+<style scoped>
 .input-bar {
   border: 2px solid #eee;
   padding: 8px;
